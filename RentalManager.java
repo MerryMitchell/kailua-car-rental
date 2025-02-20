@@ -4,7 +4,7 @@ import java.util.Scanner;
 import java.time.format.DateTimeFormatter;
 
 public class RentalManager {
-    public static void ManageRentals(Scanner scanner){
+    public static void manageRentals(Scanner scanner){
         while (true) {
             System.out.println("Manage rental agreements");
             System.out.println("1. Create rental agreement");
