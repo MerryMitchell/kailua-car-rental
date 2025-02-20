@@ -1,0 +1,67 @@
+#create schema KailuaCarRental;
+create table cars (
+car_id 				int not null auto_increment primary key,
+brand 				varchar(50) not null,
+model 				varchar(50) not null,
+fueltype 			varchar(50) not null,
+reg_nr 				varchar(50) null unique,
+reg_date 			date,
+car_group			ENUM("Luxury", "Family", "Sport"),
+Odometer_tracker 	int not null
+);
+
+create table customers (
+Customer_ID			int not null auto_increment primary key,
+fName 				varchar(50) not null,
+lName				varchar(50) not null,
+address				varchar(100) not null,
+Zip					varchar(10) not null,
+City				varchar(50) not null,
+C_tel				varchar (20)not null unique,
+C_Email				varchar(100) not null unique,
+DriverLicenseNr		varchar(20) not null unique,
+Driver_since		date
+);
+
+
+create table rentalcontract (
+rentalcontract_ID	int not null auto_increment primary key,
+from_datetime 		datetime,
+to_datetime			datetime,
+max_km				int not null,
+Customer_ID			int not null,
+car_id 				int not null,
+foreign key (car_ID) references cars(car_id),
+foreign key (Customer_ID) references customers(Customer_id),
+CHECK (from_datetime < to_datetime)
+);
+
+insert into cars values 
+("1","Mercedes-Benz", "GLS", "Diesel", "AB12345", '2024-06-26', "Luxury", 1000); 
+delete from cars where reg_nr ="ab12345";
+INSERT INTO cars (brand, model, fueltype, reg_nr, reg_date, car_group, Odometer_tracker) 
+VALUES 
+("Mercedes-Benz", "GLS", "Diesel", "AB12345", '2024-06-26', "Luxury", 1000),
+("BMW", "X5", "Petrol", "XY98765", '2023-12-15', "Luxury", 5000),
+("Audi", "Q7", "Diesel", "CD23456", '2023-08-01', "Luxury", 7000),
+("Toyota", "RAV4", "Hybrid", "EF34567", '2024-01-12', "Family", 1200),
+("Honda", "CR-V", "Petrol", "GH45678", '2023-11-18', "Family", 6500),
+("Ford", "Escape", "Hybrid", "IJ56789", '2023-09-07', "Family", 8000),
+("Porsche", "Cayenne", "Diesel", "KL67890", '2023-10-25', "Sport", 1000),
+("Chevrolet", "Camaro", "Petrol", "MN78901", '2023-05-22', "Sport", 9500),
+("Tesla", "Model X", "Electric", "OP89012", '2023-07-30', "Luxury", 4000),
+("Nissan", "370Z", "Petrol", "QR90123", '2023-02-14', "Sport", 3000);
+
+
+INSERT INTO customers (fName, lName, address, Zip, City, C_tel, C_Email, DriverLicenseNr, Driver_since)
+VALUES 
+("John", "Doe", "123 Main St", "12345", "Springfield", "123-456-7890", "john.doe@example.com", "DL1234567", '2010-05-15'),
+("Jane", "Smith", "456 Oak Rd", "67890", "Riverside", "234-567-8901", "jane.smith@example.com", "DL2345678", '2012-08-25'),
+("Mike", "Johnson", "789 Pine Ln", "11223", "Lakeside", "345-678-9012", "mike.johnson@example.com", "DL3456789", '2015-11-30'),
+("Emily", "Brown", "321 Maple Dr", "44556", "Greenwood", "456-789-0123", "emily.brown@example.com", "DL4567890", '2018-03-10'),
+("David", "Williams", "654 Birch St", "77889", "Brookfield", "567-890-1234", "david.williams@example.com", "DL5678901", '2013-06-19'),
+("Sarah", "Davis", "987 Cedar Blvd", "99001", "Hilltown", "678-901-2345", "sarah.davis@example.com", "DL6789012", '2014-09-14'),
+("Chris", "Miller", "135 Elm St", "22334", "Weston", "789-012-3456", "chris.miller@example.com", "DL7890123", '2011-04-22'),
+("Olivia", "Wilson", "246 Redwood Ave", "55667", "Oakwood", "890-123-4567", "olivia.wilson@example.com", "DL8901234", '2016-01-09'),
+("James", "Moore", "369 Fir Ln", "88900", "Pinehill", "901-234-5678", "james.moore@example.com", "DL9012345", '2017-12-03'),
+("Sophia", "Taylor", "482 Willow Rd", "44567", "Cliffton", "012-345-6789", "sophia.taylor@example.com", "DL0123456", '2019-02-11');
